@@ -1,0 +1,25 @@
+Current Results:
+                  Aspect                                                                  Details
+Model Training & Testing                                                           Accuracy: 0.00
+           Bias Analysis Accuracy across demographics: {'Accuracy': {'Male': 0.6, 'Female': 1.0}}
+ Misinformation Analysis                                               Misinformation score: 1.00
+
+Upcoming Results:
+                                        Next Steps
+     Fine-tune hyperparameters to improve accuracy
+Implement re-weighting techniques to mitigate bias
+        Enhance misinformation detection mechanism
+
+Bias Analysis Results:
+        Accuracy
+Male         0.6
+Female       1.0
+
+Misinformation Results:
+              Metric  Value
+Misinformation Score    1.0
+
+Test Results:
+ Actual  Predicted
+      0          1
+      0          1
