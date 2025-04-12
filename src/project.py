@@ -17,35 +17,47 @@ data = pd.DataFrame({
     'correct_prescription': np.random.choice([0, 1], 10)
 })
 
-# Encoding categorical variables
+# Encode categorical variables
 label_encoder = LabelEncoder()
-data['gender'] = label_encoder.fit_transform(data['gender'])  # Converts Male/Female to 0/1
+data['gender'] = label_encoder.fit_transform(data['gender'])  # Male=1, Female=0
 
 # Preprocessing
-X = data.drop(columns=['correct_prescription', 'patient_id', 'prescribed_drug'])  # Remove non-numeric column
+X = data.drop(columns=['correct_prescription', 'patient_id', 'prescribed_drug'])  # Remove non-numeric
 y = data['correct_prescription']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+# Feature scaling
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Model training
+# Train the model
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train_scaled, y_train)
 
+# Predictions
 y_pred = model.predict(X_test_scaled)
-accuracy = accuracy_score(y_test, y_pred)
-classification_rep = classification_report(y_test, y_pred, output_dict=True)
 
-# Store results in DataFrame
+# Print unique labels in true values
+print("Unique labels in y_test:", np.unique(y_test))
+
+# Metrics with zero_division fix
+accuracy = accuracy_score(y_test, y_pred)
+classification_rep = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
+
+# Store results
 current_results = pd.DataFrame({
     'Metric': ['Model Accuracy', 'Precision', 'Recall', 'F1-Score'],
-    'Value': [accuracy, classification_rep['weighted avg']['precision'], classification_rep['weighted avg']['recall'], classification_rep['weighted avg']['f1-score']]
+    'Value': [
+        accuracy,
+        classification_rep['weighted avg']['precision'],
+        classification_rep['weighted avg']['recall'],
+        classification_rep['weighted avg']['f1-score']
+    ]
 })
 
-# Fairness & Bias Analysis
+# Bias Analysis
 def analyze_bias(data, model):
     demographic_groups = data['gender'].unique()
     fairness_results = {}
@@ -66,7 +78,7 @@ def validate_recommendations(predictions, trusted_medical_sources):
     validation_results = [1 if pred in trusted_medical_sources else 0 for pred in predictions]
     return sum(validation_results) / len(validation_results)
 
-trusted_sources = [0, 1]  # Placeholder for valid prescriptions (1 = correct, 0 = incorrect)
+trusted_sources = [0, 1]  # Placeholder for valid values
 misinformation_score = validate_recommendations(y_pred, trusted_sources)
 
 misinformation_results = pd.DataFrame({
@@ -74,13 +86,13 @@ misinformation_results = pd.DataFrame({
     'Value': [misinformation_score]
 })
 
-# Display test results
+# Test results
 test_results = pd.DataFrame({
     'Actual': y_test.values,
     'Predicted': y_pred
 })
 
-# Current Results Summary
+# Detailed summary
 detailed_current_results = pd.DataFrame({
     'Aspect': ['Model Training & Testing', 'Bias Analysis', 'Misinformation Analysis'],
     'Details': [
@@ -90,7 +102,7 @@ detailed_current_results = pd.DataFrame({
     ]
 })
 
-# Upcoming Results
+# Next steps
 upcoming_results = pd.DataFrame({
     'Next Steps': [
         'Fine-tune hyperparameters to improve accuracy',
@@ -100,7 +112,7 @@ upcoming_results = pd.DataFrame({
 })
 
 # Print Results
-print("Current Results:")
+print("\nCurrent Results:")
 print(detailed_current_results.to_string(index=False))
 
 print("\nUpcoming Results:")
