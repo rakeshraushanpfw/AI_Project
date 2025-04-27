@@ -1,0 +1,76 @@
+patient_id,age,gender,medical_history,known_allergies,current_medication1,current_medication2,current_medication3,current_medication4,current_medication5,drug_interactions,correct_prescription
+101,23,Male,Heart Disease,1,DrugA,DrugB,DrugE,DrugC,DrugE,0,0
+102,78,Female,Asthma,0,DrugB,DrugC,DrugD,DrugB,DrugD,0,1
+103,60,Male,Diabetes,1,DrugD,DrugA,DrugE,DrugA,DrugB,1,1
+104,20,Female,Heart Disease,0,DrugE,DrugB,DrugC,DrugD,DrugA,0,0
+105,90,Male,Asthma,1,DrugC,DrugD,DrugB,DrugE,DrugC,1,0
+106,65,Female,Diabetes,1,DrugB,DrugA,DrugE,DrugC,DrugD,0,1
+107,27,Male,Heart Disease,0,DrugA,DrugC,DrugD,DrugB,DrugE,0,0
+108,83,Female,Asthma,1,DrugD,DrugB,DrugE,DrugD,DrugC,0,1
+109,67,Male,Diabetes,1,DrugC,DrugA,DrugB,DrugB,DrugA,1,1
+110,27,Female,Heart Disease,0,DrugB,DrugE,DrugD,DrugE,DrugA,0,0
+111,40,Male,Asthma,1,DrugD,DrugC,DrugA,DrugC,DrugD,1,0
+112,55,Female,,1,DrugA,DrugB,DrugC,DrugD,DrugB,0,1
+113,67,Male,Heart Disease,0,DrugE,DrugD,DrugA,DrugA,DrugB,0,0
+114,65,Female,Asthma,1,DrugC,DrugE,DrugB,DrugE,DrugD,0,1
+115,23,Male,Diabetes,1,DrugB,DrugD,DrugA,DrugC,DrugB,1,1
+116,65,Female,Heart Disease,0,DrugA,DrugB,DrugE,,,0,0
+117,29,Male,Asthma,1,DrugD,DrugA,DrugC,,,1,0
+118,67,Female,Diabetes,1,DrugE,DrugC,DrugD,,,0,1
+119,20,Male,Heart Disease,0,DrugC,DrugD,DrugB,,,0,0
+120,90,Female,,1,DrugB,DrugE,DrugD,,,0,1
+121,65,Male,Diabetes,1,DrugD,DrugC,DrugB,,,1,1
+122,27,Female,Heart Disease,0,DrugB,DrugA,DrugD,,,0,0
+123,83,Male,Asthma,1,DrugE,DrugA,DrugC,,,1,0
+124,67,Female,Diabetes,1,DrugC,DrugD,DrugB,,,0,1
+125,27,Male,Heart Disease,0,DrugD,DrugB,DrugE,,,0,0
+126,40,Female,Asthma,1,DrugA,DrugB,DrugC,,,0,1
+127,55,Male,Diabetes,1,DrugE,DrugD,DrugB,DrugD,DrugA,1,1
+128,67,Female,Heart Disease,0,DrugC,DrugB,DrugD,DrugA,DrugE,0,0
+129,65,Male,Asthma,1,DrugB,DrugC,DrugD,DrugC,DrugE,1,0
+130,23,Female,Diabetes,1,DrugD,DrugA,DrugE,DrugD,DrugC,0,1
+131,65,Male,Heart Disease,0,DrugA,DrugD,DrugC,DrugD,DrugB,0,0
+132,29,Female,Asthma,1,DrugE,DrugB,DrugD,DrugB,DrugD,0,1
+133,67,Male,Diabetes,1,DrugC,DrugD,DrugA,DrugC,DrugE,1,1
+134,65,Female,Heart Disease,0,DrugB,DrugA,DrugE,DrugB,DrugC,0,0
+135,37,Male,Asthma,1,,,DrugE,DrugE,DrugA,1,0
+136,73,Female,Diabetes,1,,,DrugC,DrugA,DrugC,0,1
+137,68,Male,Heart Disease,0,,,DrugB,DrugC,DrugB,0,0
+138,90,Female,Asthma,1,,,DrugD,DrugD,DrugB,0,1
+139,78,Male,Diabetes,1,DrugA,DrugC,DrugE,DrugB,DrugE,1,1
+140,97,Female,,0,DrugD,DrugB,DrugC,DrugE,DrugC,0,0
+141,23,Male,Asthma,1,DrugB,DrugE,DrugA,DrugD,DrugA,1,0
+142,78,Female,Diabetes,1,DrugD,DrugA,DrugC,DrugA,DrugC,0,1
+143,60,Male,Heart Disease,0,DrugA,DrugC,DrugB,DrugE,DrugD,0,0
+144,20,Female,Asthma,1,DrugE,DrugD,DrugB,DrugC,DrugB,0,1
+145,90,Male,Diabetes,1,DrugC,DrugB,DrugE,DrugB,DrugE,1,1
+146,65,Female,Heart Disease,0,DrugB,DrugE,DrugC,DrugD,DrugC,0,0
+147,27,Male,Asthma,1,DrugD,DrugC,DrugB,DrugA,DrugB,1,0
+148,83,Female,Diabetes,1,DrugA,DrugB,DrugE,DrugE,DrugC,0,1
+149,67,Male,Heart Disease,0,DrugE,DrugC,DrugA,DrugC,DrugD,0,0
+150,27,Female,Asthma,1,DrugC,DrugD,DrugE,,,0,1
+151,83,Female,Asthma,1,DrugD,DrugB,DrugE,DrugD,DrugC,0,1
+152,67,Male,Diabetes,1,DrugC,DrugA,DrugB,DrugB,DrugA,1,1
+153,27,Female,Heart Disease,0,DrugB,DrugE,DrugD,DrugE,DrugA,0,0
+154,40,Male,Asthma,1,DrugD,DrugC,DrugA,DrugC,DrugD,1,0
+155,55,Female,Diabetes,1,DrugA,DrugB,DrugC,DrugD,DrugB,0,1
+156,67,Male,Heart Disease,0,DrugE,DrugD,DrugA,DrugA,DrugB,0,0
+157,65,Female,Asthma,1,DrugC,DrugE,DrugB,DrugE,DrugD,0,1
+158,23,Male,Diabetes,1,DrugB,DrugD,DrugA,DrugC,DrugB,1,1
+159,65,Female,Heart Disease,0,DrugA,DrugB,DrugE,Unknow,Unknow,0,0
+160,29,Male,Asthma,1,DrugD,DrugA,DrugC,Unknow,Unknow,1,0
+161,67,Female,Diabetes,1,DrugE,DrugC,DrugD,Unknow,Unknow,0,1
+162,20,Male,Heart Disease,0,DrugC,DrugD,DrugB,Unknow,Unknow,0,0
+163,90,Female,,1,DrugB,DrugE,DrugD,Unknow,Unknow,0,1
+164,65,Male,Diabetes,1,DrugD,DrugC,DrugB,Unknow,Unknow,1,1
+165,27,Female,Heart Disease,0,DrugB,DrugA,DrugD,Unknow,Unknow,0,0
+166,83,Male,Asthma,1,DrugE,DrugA,DrugC,Unknow,Unknow,1,0
+167,67,Female,Diabetes,1,DrugC,DrugD,DrugB,,,0,1
+168,27,Male,Heart Disease,0,DrugD,DrugB,DrugE,,,0,0
+169,40,Female,Asthma,1,DrugA,DrugB,DrugC,,,0,1
+170,55,Male,Diabetes,1,DrugE,DrugD,DrugB,DrugD,DrugA,1,1
+171,67,Female,Heart Disease,0,DrugC,DrugB,DrugD,DrugA,DrugE,0,0
+172,65,Male,Asthma,1,DrugB,DrugC,DrugD,DrugC,DrugE,1,0
+173,67,Female,Diabetes,1,DrugE,DrugC,DrugD,Unknow,Unknow,0,1
+174,20,Male,Heart Disease,0,DrugC,DrugD,DrugB,Unknow,Unknow,0,0
+175,90,Female,Asthma,1,DrugB,DrugE,DrugD,Unknow,Unknow,0,1

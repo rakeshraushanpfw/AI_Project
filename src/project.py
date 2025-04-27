@@ -1,61 +1,78 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, classification_report
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler
 
-# Simulated dataset
-np.random.seed(42)
-data = pd.DataFrame({
-    'patient_id': range(1, 11),
-    'age': np.random.randint(20, 80, 10),
-    'gender': np.random.choice(['Male', 'Female'], 10),
-    'prescribed_drug': np.random.choice(['DrugA', 'DrugB', 'DrugC', 'DrugD'], 10),
-    'known_allergies': np.random.choice([0, 1], 10),
-    'drug_interactions': np.random.choice([0, 1], 10),
-    'correct_prescription': np.random.choice([0, 1], 10)
-})
+# Load training and testing datasets
+train_data = pd.read_csv('patient_train_data.csv')
+test_data = pd.read_csv('patient_test_data.csv')
 
-# Encode categorical variables
-label_encoder = LabelEncoder()
-data['gender'] = label_encoder.fit_transform(data['gender'])  # Male=1, Female=0
+# Common Preprocessing Function
+def preprocess_data(data, fit=True, label_encoder_gender=None, label_encoder_history=None, label_encoder_medication=None):
+    if fit:
+        label_encoder_gender = {}
+        label_encoder_history = {}
+        label_encoder_medication = {}
 
-# Preprocessing
-X = data.drop(columns=['correct_prescription', 'patient_id', 'prescribed_drug'])  # Remove non-numeric
-y = data['correct_prescription']
+    # Encode gender
+    if fit:
+        label_encoder_gender = dict(enumerate(data['gender'].astype('category').cat.categories))
+    data['gender'] = data['gender'].astype('category').cat.codes
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # Encode medical_history
+    if fit:
+        label_encoder_history = dict(enumerate(data['medical_history'].astype('category').cat.categories))
+    data['medical_history'] = data['medical_history'].astype('category').cat.codes
 
-# Feature scaling
+    # Encode current medications dynamically
+    medication_columns = [col for col in data.columns if 'current_medication' in col]
+    for col in medication_columns:
+        if fit:
+            label_encoder_medication[col] = dict(enumerate(data[col].fillna('Unknown').astype('category').cat.categories))
+        data[col] = data[col].fillna('Unknown').astype('category').cat.codes
+
+    # Ensure 'age' is treated as a numeric feature
+    data['age'] = data['age'].fillna(data['age'].mean())  # Handle missing values by replacing with the mean age
+    return data, label_encoder_gender, label_encoder_history, label_encoder_medication
+
+# Preprocess training data
+train_data, label_encoder_gender, label_encoder_history, label_encoder_medication = preprocess_data(train_data, fit=True)
+
+# Preprocess testing data (use the same label encoders fitted on training data)
+test_data, _, _, _ = preprocess_data(test_data, fit=False, label_encoder_gender=label_encoder_gender, label_encoder_history=label_encoder_history, label_encoder_medication=label_encoder_medication)
+
+# Separate features and labels
+X_train = train_data.drop(columns=['patient_id', 'correct_prescription'])
+y_train = train_data['correct_prescription']
+
+X_test = test_data.drop(columns=['patient_id', 'correct_prescription'])
+y_test = test_data['correct_prescription']
+
+# Standardize
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Train the model
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+# Train model (with better parameters)
+model = GradientBoostingClassifier(
+    n_estimators=500,
+    learning_rate=0.05,
+    max_depth=5,
+    random_state=42
+)
 model.fit(X_train_scaled, y_train)
 
-# Predictions
+# Predict
 y_pred = model.predict(X_test_scaled)
 
-# Print unique labels in true values
-print("Unique labels in y_test:", np.unique(y_test))
-
-# Metrics with zero_division fix
+# Evaluation
 accuracy = accuracy_score(y_test, y_pred)
 classification_rep = classification_report(y_test, y_pred, output_dict=True, zero_division=0)
 
-# Store results
-current_results = pd.DataFrame({
-    'Metric': ['Model Accuracy', 'Precision', 'Recall', 'F1-Score'],
-    'Value': [
-        accuracy,
-        classification_rep['weighted avg']['precision'],
-        classification_rep['weighted avg']['recall'],
-        classification_rep['weighted avg']['f1-score']
-    ]
-})
+# Display results
+print(f"Model Accuracy: {accuracy:.2f}")
+print("Classification Report:\n", classification_report(y_test, y_pred, zero_division=0))
 
 # Bias Analysis
 def analyze_bias(data, model):
@@ -63,66 +80,22 @@ def analyze_bias(data, model):
     fairness_results = {}
     for group in demographic_groups:
         subset = data[data['gender'] == group]
-        X_subset = subset.drop(columns=['correct_prescription', 'patient_id', 'prescribed_drug'])
-        y_subset = subset['correct_prescription']
+        X_subset = subset.drop(columns=['patient_id', 'correct_prescription'])
         X_subset_scaled = scaler.transform(X_subset)
+        y_subset = subset['correct_prescription']
         y_pred_subset = model.predict(X_subset_scaled)
-        fairness_results[label_encoder.inverse_transform([group])[0]] = accuracy_score(y_subset, y_pred_subset)
+        fairness_results[group] = accuracy_score(y_subset, y_pred_subset)
     return fairness_results
 
-bias_results = analyze_bias(data, model)
-bias_results_df = pd.DataFrame.from_dict(bias_results, orient='index', columns=['Accuracy'])
+bias_results = analyze_bias(test_data, model)
+print("\nBias Analysis Results:", bias_results)
 
 # Misinformation Analysis
 def validate_recommendations(predictions, trusted_medical_sources):
     validation_results = [1 if pred in trusted_medical_sources else 0 for pred in predictions]
     return sum(validation_results) / len(validation_results)
 
-trusted_sources = [0, 1]  # Placeholder for valid values
+trusted_sources = [0, 1]  # Assuming 0 and 1 are both trusted
 misinformation_score = validate_recommendations(y_pred, trusted_sources)
 
-misinformation_results = pd.DataFrame({
-    'Metric': ['Misinformation Score'],
-    'Value': [misinformation_score]
-})
-
-# Test results
-test_results = pd.DataFrame({
-    'Actual': y_test.values,
-    'Predicted': y_pred
-})
-
-# Detailed summary
-detailed_current_results = pd.DataFrame({
-    'Aspect': ['Model Training & Testing', 'Bias Analysis', 'Misinformation Analysis'],
-    'Details': [
-        f'Accuracy: {accuracy:.2f}',
-        f'Accuracy across demographics: {bias_results_df.to_dict()}',
-        f'Misinformation score: {misinformation_score:.2f}'
-    ]
-})
-
-# Next steps
-upcoming_results = pd.DataFrame({
-    'Next Steps': [
-        'Fine-tune hyperparameters to improve accuracy',
-        'Implement re-weighting techniques to mitigate bias',
-        'Enhance misinformation detection mechanism'
-    ]
-})
-
-# Print Results
-print("\nCurrent Results:")
-print(detailed_current_results.to_string(index=False))
-
-print("\nUpcoming Results:")
-print(upcoming_results.to_string(index=False))
-
-print("\nBias Analysis Results:")
-print(bias_results_df.to_string())
-
-print("\nMisinformation Results:")
-print(misinformation_results.to_string(index=False))
-
-print("\nTest Results:")
-print(test_results.to_string(index=False))
+print("\nMisinformation Score:", misinformation_score)
