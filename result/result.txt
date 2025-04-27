@@ -1,27 +1,15 @@
-Unique labels in y_test: [0]
+Model Accuracy: 0.99
+Classification Report:
+               precision    recall  f1-score   support
 
-Current Results:
-                  Aspect                                                                  Details
-Model Training & Testing                                                           Accuracy: 0.00
-           Bias Analysis Accuracy across demographics: {'Accuracy': {'Male': 0.6, 'Female': 1.0}}
- Misinformation Analysis                                               Misinformation score: 1.00
+           0       1.00      0.97      0.99        37
+           1       0.97      1.00      0.99        38
 
-Upcoming Results:
-                                        Next Steps
-     Fine-tune hyperparameters to improve accuracy
-Implement re-weighting techniques to mitigate bias
-        Enhance misinformation detection mechanism
+    accuracy                           0.99        75
+   macro avg       0.99      0.99      0.99        75
+weighted avg       0.99      0.99      0.99        75
 
-Bias Analysis Results:
-        Accuracy
-Male         0.6
-Female       1.0
 
-Misinformation Results:
-              Metric  Value
-Misinformation Score    1.0
+Bias Analysis Results: {1: 1.0, 0: 0.9736842105263158}
 
-Test Results:
- Actual  Predicted
-      0          1
-      0          1
+Misinformation Score: 1.0
