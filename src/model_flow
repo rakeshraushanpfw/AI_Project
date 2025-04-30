@@ -1,0 +1,23 @@
+// Model Flow Diagram
+digraph {
+	A [label="Load Data"]
+	B [label="Preprocess Data
+(encode categorical, fill missing)"]
+	C [label="Split Features & Labels"]
+	D [label="Standardize Features"]
+	E [label="Train Gradient Boosting Classifier"]
+	F [label="Make Predictions"]
+	G [label="Evaluate Model
+(Accuracy, Report)"]
+	H [label="Bias Analysis by Gender"]
+	I [label="Misinformation Validation
+(against trusted sources)"]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+	F -> G
+	F -> H
+	F -> I
+}

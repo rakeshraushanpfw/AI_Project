@@ -4,6 +4,10 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import StandardScaler
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+
 # Load training and testing datasets
 train_data = pd.read_csv('patient_train_data.csv')
 test_data = pd.read_csv('patient_test_data.csv')
@@ -99,3 +103,14 @@ trusted_sources = [0, 1]  # Assuming 0 and 1 are both trusted
 misinformation_score = validate_recommendations(y_pred, trusted_sources)
 
 print("\nMisinformation Score:", misinformation_score)
+
+# Generate confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Plot confusion matrix
+plt.figure(figsize=(8, 6))
+sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=np.unique(y_test), yticklabels=np.unique(y_test))
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.show()

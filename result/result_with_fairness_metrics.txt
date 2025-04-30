@@ -1,0 +1,19 @@
+=== Classification Report ===
+              precision    recall  f1-score   support
+
+           0       1.00      0.97      0.99        37
+           1       0.97      1.00      0.99        38
+
+    accuracy                           0.99        75
+   macro avg       0.99      0.99      0.99        75
+weighted avg       0.99      0.99      0.99        75
+
+Overall Accuracy: 0.99
+
+=== Fairness Metrics by Gender ===
+        accuracy  selection_rate
+gender
+0       0.710526        0.710526
+1       0.324324        0.324324
+
+Misinformation Score: 1.00
