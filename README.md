@@ -1,115 +1,60 @@
-Tackling Bias and Misinformation in Healthcare
+**Fair AI-Based Prescription System**
+This project implements a machine learning pipeline to assist in generating accurate and fair medical prescriptions. 
+Using a Gradient Boosting Classifier (GBC) alongside the Fairlearn framework, the model mitigates gender bias 
+while maintaining high accuracy. The system also integrates bias evaluation, misinformation filtering, 
+and fairness-aware threshold optimization.
 
-AI-Powered Prescription Safety and Fairness System
+**Key Features**
+Gradient Boosting Classifier (GBC): Used for high-accuracy prescription predictions.
 
-📌 Overview
+Bias Mitigation: Uses Fairlearn's ThresholdOptimizer for equalized odds fairness across gender groups.
 
-This project aims to develop an AI system that assists doctors and pharmacists in preventing medication errors while ensuring fairness and accuracy in treatment. The AI model cross-checks prescriptions, detects potential biases in healthcare recommendations, and validates information against trusted medical guidelines.
+Misinformation Filter: Validates predictions against trusted medication sources.
 
-🚀 Key Features
+**Performance Evaluation:**
 
-Medication Error Prevention – AI cross-checks prescriptions with patient history and known drug interactions.
+Accuracy, precision, recall, F1 score
 
-Bias Detection & Fairness – Analyzes AI recommendations across different demographic groups to ensure equitable treatment.
+Confusion matrix
 
-Misinformation Detection – Validates AI-generated prescriptions against verified medical sources.
+Fairness metrics by gender (accuracy and selection rate)
 
-📂 Project Components
+**Results**
+Accuracy: 99%
 
-1️⃣ Data Sources
+Gender Bias: Post-fairness correction reduced performance gap between male and female groups.
 
-The AI model is trained using multiple healthcare datasets:
+Misinformation Score: 100% alignment with trusted sources.
 
-Network of Patient Safety Databases (NPSD) – Real-life medication error reports.
+**Future Work**
+Expand to larger and more diverse datasets.
 
-FDA Adverse Event Reporting System (FAERS) – Tracks drug interactions and side effects.
+Integrate richer clinical and contextual features.
 
-MIMIC-III – Hospital records with patient prescriptions and outcomes.
+Dynamically connect to updated medical databases and clinical guidelines.
 
-DrugBank – Scientific data on drug interactions.
+**Visualizations**
+Confusion Matrix
 
-CDC Adverse Drug Events Data – Emergency visits related to medication errors.
+Gender Fairness Metrics Graph
 
-2️⃣ Methodology
+Performance Metric Comparisons
 
-📌 Data Preparation – Standardizes, cleans, and anonymizes patient data.
+**Dependencies**
+Python 3.8+
 
-📌 Model Development – Uses a RandomForestClassifier to predict medication correctness.
+pandas
 
-📌 Bias & Fairness Analysis – Evaluates accuracy across demographic groups.
+numpy
 
-📌 Misinformation Detection – Compares AI recommendations with trusted sources.
+scikit-learn
 
-📌 Performance Evaluation – Measures accuracy, fairness, and trustworthiness.
+fairlearn
 
-🔧 Installation & Dependencies
+matplotlib
 
-Requirements
+seaborn
 
-Ensure you have Python 3.8+ installed. Install dependencies using:
-
-pip install pandas numpy scikit-learn
-
-▶️ Running the Project
-
-Run the following script to train and evaluate the AI model:
-
-python main.py
-
-This will:
-✅ Train the AI model using sample patient data.✅ Detect biases in AI-generated prescriptions.✅ Validate prescriptions against trusted medical sources.✅ Display results in tabular format.
-
-📊 Expected Results
-
-Current Results
-
-Aspect
-
-Details
-
-Model Training & Testing
-
-Accuracy: 0.75
-
-Bias Analysis
-
-Accuracy across demographics: {'Male': 0.66, 'Female': 0.80}
-
-Misinformation Analysis
-
-Misinformation score: 0.85
-
-Upcoming Results
-
-Next Steps
-
-Fine-tune hyperparameters to improve accuracy
-
-Implement re-weighting techniques to mitigate bias
-
-Enhance misinformation detection mechanism
-
-⚠️ Challenges & Future Enhancements
-
-Challenges Faced:
-
-Data Bias – AI models may reflect biases present in training data.
-
-Misinformation Detection – Ensuring AI-generated recommendations align with verified guidelines.
-
-Future Enhancements:
-
-🔹 Fine-tuning the model to improve prescription accuracy.
-
-🔹 Incorporating explainability techniques for AI decisions.
-
-🔹 Integrating real-world patient data for better validation.
-
-👥 Contributing
-
-If you’d like to contribute, feel free to fork this project and submit pull requests!
-
-📜 License
-
-This project is open-source under the MIT License.
+**GitHub Repository**
+https://github.com/rakeshraushanpfw/AI_Project
 
